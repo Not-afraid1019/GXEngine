@@ -8,24 +8,19 @@ namespace gx {
     DriverState::~DriverState() noexcept {}
 
     void DriverState::viewport(const glm::vec4 &viewport) noexcept {
+        glViewport(
+                static_cast<GLint>(viewport.x),
+                static_cast<GLint>(viewport.y),
+                static_cast<GLint>(viewport.z),
+                static_cast<GLint>(viewport.w)
+                );
+
         mCurrentViewport = viewport;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     bool DriverState::useProgram(GLuint program) noexcept {
         // 检查上一个物体渲染使用的Program是否跟当前的一样
-        // 只有不一样的时候才会重新绑定
+        // 只有不一样的时候，才需要重新绑定
         if (mCurrentProgram != program) {
             glUseProgram(program);
             mCurrentProgram = program;

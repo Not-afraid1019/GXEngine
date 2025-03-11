@@ -4,24 +4,22 @@
 #include "../core/object3D.h"
 #include "../objects/mesh.h"
 #include "../scene/scene.h"
-#include "driver/driverWindow.h"
 #include "renderTarget.h"
+#include "driver/driverAttributes.h"
+#include "driver/driverBindingState.h"
+#include "driver/driverPrograms.h"
+#include "driver/driverWindow.h"
 #include "driver/driverRenderList.h"
 #include "driver/driverTextures.h"
-#include "driver/driverAttributes.h"
-#include "driver/driverState.h"
 #include "driver/driverObjects.h"
-#include "driver/driverGeometries.h"
-#include "driver/driverPrograms.h"
-#include "driver/driverBindingState.h"
+#include "driver/driverInfo.h"
+#include "driver/driverState.h"
 #include "driver/driverMaterials.h"
 #include "driver/driverBackground.h"
 #include "driver/driverRenderState.h"
 #include "driver/driverRenderTargets.h"
 #include "driver/driverShadowMap.h"
 #include "../math/frustum.h"
-
-
 
 namespace gx {
     
@@ -35,6 +33,9 @@ namespace gx {
         };
         
         using OnSizeCallback = std::function<void(int width, int height)>;
+        using OnMouseMoveCallback = std::function<void(double xpos, double ypos)>;
+        using OnKeyboardActionCallback = std::function<void(KeyBoardState)>;
+        using OnMouseActionCallback = std::function<void(MouseAction)>;
 
         using Ptr = std::shared_ptr<Renderer>;
         static Ptr create(const Descriptor& descriptor) {
@@ -55,11 +56,11 @@ namespace gx {
 
         void setFrameSizeCallback(const OnSizeCallback& callback) noexcept;
 
-//        void setMouseMoveCallback(const DriverWindow::MouseMoveCallback& callback) noexcept;
+        void setMouseMoveCallback(const DriverWindow::MouseMoveCallback& callback) noexcept;
 
-//        void setMouseActionCallback(const DriverWindow::MouseActionCallback& callback) noexcept;
+        void setMouseActionCallback(const DriverWindow::MouseActionCallback& callback) noexcept;
 
-//        void setKeyboardActionCallback(const DriverWindow::KeyboardActionCallback& callback) noexcept;
+        void setKeyboardActionCallback(const DriverWindow::KeyboardActionCallback& callback) noexcept;
 
         RenderTarget::Ptr getRenderTarget() const noexcept;
 
@@ -75,15 +76,25 @@ namespace gx {
         bool mAutoColor{true};
 
     private:
+
+        // 1 object：当前需要被project的object，project：将当前层级架构的组织，展开成为列表
+        // 2 groupOrder：当前其所处的group的渲染优先级
+        // 3 sortObjects：是否在渲染列表中对item进行排序
         void projectObject(const Object3D::Ptr& object, uint32_t groupOrder, bool sortObjects) noexcept;
 
-//        void renderScene(const DriverRenderList::Ptr& currentRenderList, const Scene::Ptr& scene, const Camera::Ptr& camera) noexcept;
+        // 第一层级，在场景级别，进行一些状态的处理与设置
+        // 并且根据实体/透明物体进行队列渲染-renderObjects
+        void renderScene(const DriverRenderList::Ptr& currentRenderList, const Scene::Ptr& scene, const Camera::Ptr& camera) noexcept;
 
+        // 第二层级，在队列级别进行一些状态的处理与设置
+        // 依次调用每个渲染单元，进入到renderObject
         void renderObjects(
-//                const std::vector<RenderItem::Ptr>& renderItems,
+                const std::vector<RenderItem::Ptr>& renderItems,
                 const Scene::Ptr& scene,
                 const Camera::Ptr& camera) noexcept;
 
+        // 第三层级，在单个渲染单元层面上，进行一些状态的处理与设置
+        // 并且调用跟API相关深重的renderBufferDirect
         void renderObject(
                 const RenderableObject::Ptr& object,
                 const Scene::Ptr& scene,
@@ -105,7 +116,7 @@ namespace gx {
                 const Material::Ptr& material,
                 const RenderableObject::Ptr& object) noexcept;
 
-        DriverProgram::Ptr setProgram(
+        DriverProgram::Ptr getProgram(
                 const Material::Ptr& material,
                 const Scene::Ptr& scene,
                 const RenderableObject::Ptr& object) noexcept;
@@ -123,6 +134,9 @@ namespace gx {
         int mHeight{600};
 
         OnSizeCallback mOnSizeCallback{nullptr};
+        OnMouseMoveCallback mOnMouseMoveCallback{nullptr};
+        OnKeyboardActionCallback mOnKeyboardActionCallback{nullptr};
+        OnMouseActionCallback mOnMouseActionCallback{nullptr};
 
         bool mSortObject{true};
 

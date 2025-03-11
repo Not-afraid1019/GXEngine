@@ -114,4 +114,19 @@ namespace gx {
         array->push_back(value);
     }
 
+    template<typename T>
+    static void setPureArrayUniform(const uint32_t& index, T value, std::vector<T>* array) {
+        if (index >= array->size()) {
+            throw std::runtime_error("Error: index is bigger than pure array uniform's bound");
+        }
+        (*array)[index] = value;
+    }
+
+    template<typename T>
+    static T getPureArrayUniform(const uint32_t& index, T value, std::vector<T>* array) {
+        if (index >= array->size()) {
+            throw std::runtime_error("Error: index is bigger than pure array uniform's bound");
+        }
+        return (*array)[index] = value;
+    }
 }

@@ -367,6 +367,10 @@ namespace gx {
         return -1;
     }
 
+    void DriverUniforms::setTextureArraySlot(const GLint &location, std::vector<GLint> slot) noexcept {
+        mTextureArraySlots.insert(std::make_pair(location, slot));
+    }
+
     std::vector<GLint> DriverUniforms::getTextureArraySlot(const GLint &location) noexcept {
         std::vector<GLint> slots;
         auto iter = mTextureArraySlots.find(location);

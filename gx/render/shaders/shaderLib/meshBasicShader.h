@@ -32,7 +32,7 @@ namespace gx {
                 uvParseFragment +
                 diffuseMapParseFragment +
 
-                "out vec4 fragmentColor;n" +
+                "out vec4 fragmentColor;\n" +
                 "uniform float opacity;\n"\
                 "\n"\
                 "void main() {\n" +

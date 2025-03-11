@@ -31,8 +31,8 @@ namespace gx {
         ~Material() noexcept;
 
     public:
-        std::string getType() const noexcept {}
-        ID getID() const noexcept {}
+        std::string getType() const noexcept { return mType; }
+        ID getID() const noexcept { return mID; }
 
         // 表示在backend里面，是否需要更新材质参数
         bool mNeedsUpdate{true};

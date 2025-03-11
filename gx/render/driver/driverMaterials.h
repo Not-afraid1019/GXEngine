@@ -62,7 +62,7 @@ namespace gx {
         // 传入前端的material，返回后端对应的DriverMaterial
         DriverMaterial::Ptr get(const Material::Ptr material) noexcept;
 
-        void onMaterialDispose(const EventBase::Ptr& material);
+        void onMaterialDispose(const EventBase::Ptr& event);
 
         // 用来更新uniform变量
         static void refreshMaterialUniforms(UniformHandleMap& uniformHandleMap, const Material::Ptr& material);

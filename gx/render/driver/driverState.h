@@ -75,7 +75,7 @@ namespace gx {
                 double depthClearColor
                 ) noexcept;
 
-        glm::vec4 getClearColor() const noexcept;
+        glm::vec4 getClearColor() const  { return mCurrentColor.mClearColor; };
 
     private:
         void setBlendingInternal(

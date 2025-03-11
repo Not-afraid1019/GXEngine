@@ -1,4 +1,3 @@
-#pragma once
 #include "shaderLib/meshBasicShader.h"
 #include "shaderLib/cubeShader.h"
 #include "shaderLib/meshPhongShader.h"
@@ -7,6 +6,7 @@
 #include "uniformsLib.h"
 
 namespace gx {
+
     struct Shader {
         // 当前这个Shader，特殊的必须要的UniformMap
         UniformHandleMap mUniformMap{};
@@ -43,15 +43,15 @@ namespace gx {
                 }
             },
             {
-                    MaterialName::CubeMaterial,
-                    {
+                MaterialName::CubeMaterial,
+                {
                     merge({
                                   UniformsLib.at("envMap"),
                           }),
 
                     cube::vertex,
                     cube::fragment
-                    }
-            },
+                }
+            }
     };
 }

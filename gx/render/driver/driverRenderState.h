@@ -10,16 +10,16 @@
 namespace gx {
 
     // 存储了光与影
-    class DriverRendererState {
+    class DriverRenderState {
     public:
-        using Ptr = std::shared_ptr<DriverRendererState>;
+        using Ptr = std::shared_ptr<DriverRenderState>;
         static Ptr create() {
-            return std::make_shared<DriverRendererState>();
+            return std::make_shared<DriverRenderState>();
         }
 
-        DriverRendererState() noexcept;
+        DriverRenderState() noexcept;
 
-        ~DriverRendererState() noexcept;
+        ~DriverRenderState() noexcept;
 
         // 每一帧都会调用init，清理掉所有的数组
         void init() noexcept;

@@ -11,7 +11,7 @@ namespace gx {
             "\n"\
             "IncidentLight directLight;\n"\
             "\n"\
-            "if (NUM_DIR_LIGHTS > 0) && defined(RE_Direct)\n"\
+            "#if (NUM_DIR_LIGHTS > 0) && defined(RE_Direct)\n"\
             "   DirectionalLight directionalLight;\n"\
             "   #if defined(USE_SHADOWMAP) && NUM_DIR_LIGHTS_SHADOWS > 0\n"\
             "       DirectionalLightShadow directionalLightShadow;\n"\
@@ -23,7 +23,7 @@ namespace gx {
             "   #if defined(USE_SHADOWMAP) && NUM_DIR_LIGHT_SHADOWS > 0\n"\
             "       if(i < NUM_DIR_LIGHT_SHADOWS) {\n"\
             "           directionalLightShadow = directionalLightShadows[i];\n"\
-            "           directLight.color *= getShadow(directionalShadowMap[i], directionalLightShadow.shadowMapSize, directionalLightShadow.shadow)\n"\
+            "           directLight.color *= getShadow(directionalShadowMap[i], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, directionalShadowCoords[i]);\n"\
             "       }\n"\
             "   #endif\n"\
             "       RE_Direct(directLight, geometry, material, reflectedLight);\n"\

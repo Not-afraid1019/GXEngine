@@ -34,6 +34,7 @@ namespace gx {
         void onBeforeRender(Renderer* renderer, Scene* scene, Camera* camera);
 
     public:
+        // 在本可绘制物体进行渲染之前，会回调这个函数进行通知
         OnBeforeRenderCallback mOnBeforeRenderCallback{nullptr};
 
     protected:

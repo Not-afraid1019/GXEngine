@@ -17,6 +17,7 @@ namespace gx {
 
         ~Skeleton() noexcept;
 
+        // 一个bone的名字，就是其对应的aiNode的名字
         Bone::Ptr getBoneByName(const std::string& name) noexcept;
 
         void update() noexcept;

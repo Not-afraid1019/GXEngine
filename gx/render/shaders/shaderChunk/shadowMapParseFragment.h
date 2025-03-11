@@ -28,7 +28,7 @@ namespace gx {
             "       shadowCoord.xyz /= shadowCoord.w;\n"\
             "       shadowCoord.z += shadowBias;\n"\
             "\n"\
-            "       bvec4 inFrustumXYVec = bvec4(shadowCoord.x >= 0.0, shadowCoord.x <= 1.0, shadowCoord >= 0.0, shadowCoord.y <=1.0);\n"\
+            "       bvec4 inFrustumXYVec = bvec4(shadowCoord.x >= 0.0, shadowCoord.x <= 1.0, shadowCoord.y >= 0.0, shadowCoord.y <=1.0);\n"\
             "       bool inFrustumXY = all(inFrustumXYVec);\n"\
             "\n"\
             "       bvec2 inFrustumZVec = bvec2(inFrustumXY, shadowCoord.z <= 1.0);\n"\
@@ -45,7 +45,7 @@ namespace gx {
             "           float dx3 = dx1 / 2.0;\n"\
             "           float dy3 = dy1 / 2.0;\n"\
             "\n"\
-            "           shadow = {\n"\
+            "           shadow = (\n"\
             "               texture2DCompare(shadowMap, shadowCoord.xy + vec2(dx0, dy0), shadowCoord.z) + \n"\
             "               texture2DCompare(shadowMap, shadowCoord.xy + vec2(0.0, dy0), shadowCoord.z) + \n"\
             "               texture2DCompare(shadowMap, shadowCoord.xy + vec2(dx1, dy0), shadowCoord.z) + \n"\
@@ -64,7 +64,7 @@ namespace gx {
             "               texture2DCompare(shadowMap, shadowCoord.xy + vec2(0.0, dy0), shadowCoord.z) + \n"\
             "               texture2DCompare(shadowMap, shadowCoord.xy + vec2(dx1, dy0), shadowCoord.z) \n"\
             "           ) * (1.0 / 17.0);\n"\
-            "       }\n"\
+            "       )\n"\
             "       return shadow;\n"\
             "   }\n"\
             "#endif\n"\

@@ -42,8 +42,7 @@ namespace gx {
         }
     }
 
-    RenderItem::Ptr
-    DriverRenderList::getNextRenderItem(const RenderableObject::Ptr &object,
+    RenderItem::Ptr DriverRenderList::getNextRenderItem(const RenderableObject::Ptr &object,
                                         const Geometry::Ptr &geometry,
                                         const Material::Ptr &material,
                                         const uint32_t &groupOrder,

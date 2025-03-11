@@ -111,7 +111,7 @@ namespace gx {
         // 表示是否强制对矩阵进行更新
         bool mNeedsUpdateMatrix{true};
 
-    protected:
+//    protected:
         ID mID{0};  // 全局唯一id
 
         // for setting easy

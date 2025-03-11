@@ -2,7 +2,7 @@
 #include "../../tools/identity.h"
 #include "../shaders/shaderLib.h"
 #include "../../material/depthMaterial.h"
-
+#include "../../objects/skinnedMesh.h"
 
 
 namespace gx {
@@ -271,10 +271,15 @@ namespace gx {
         }
 
         if (object->mIsSkinnedMesh) {
+            auto skinnedMesh = std::static_pointer_cast<SkinnedMesh>(object);
+            parameters->mSkinning = true;
+            parameters->mMaxBones = skinnedMesh->mSkeleton->mBones.size();
         }
 
+        return parameters;
     }
 
+    // 根据传入Material类型的不同，返回其必须的UniformHandleMap
     UniformHandleMap DriverPrograms::getUniforms(const Material::Ptr &material) noexcept {
         UniformHandleMap uniforms{};
 

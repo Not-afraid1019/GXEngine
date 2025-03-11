@@ -4,7 +4,7 @@
 namespace gx {
 
     static const std::string packing =
-            "const float PackUpscale = 256, / 255.; // fraction ->0.. 1 (including 1)\n"\
+            "const float PackUpscale = 256. / 255.; // fraction ->0.. 1 (including 1)\n"\
             "const float UnpackDownscale = 255. / 256.; // 0.. 1 ->fraction (excluding 1)\n"\
             "const vec3 PackFactors = vec3(256. * 256. * 256., 256. * 256, 256.);\n"\
             "const vec4 UnpackFactors = UnpackDownscale / vec4(PackFactors, 1.);\n"\

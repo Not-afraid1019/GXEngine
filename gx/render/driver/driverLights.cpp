@@ -58,7 +58,7 @@ namespace gx {
             auto color = light->mColor;
             auto intensity = light->mIntensity;
 
-//            Texture::Ptr shadowMap = (light->mShadow && light->mShadow->mRenderTarget) ? light->mShadow->mRenderTarget->getTexture() : nullptr;
+            Texture::Ptr shadowMap = (light->mShadow && light->mShadow->mRenderTarget) ? light->mShadow->mRenderTarget->getTexture() : nullptr;
 
             // maybe multi-ambient
             // 在这里将所有ambientLight的影响都累加
